@@ -1,2 +1,2 @@
-./config/connection.php
+config/connection.php
 docker-compose.yml
