@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Xosq\\":"src/Xosq/"            
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}

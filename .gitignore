@@ -1,2 +1,5 @@
 config/connection.php
 docker-compose.yml
+vendor
+phpunit.xml
+composer.lock

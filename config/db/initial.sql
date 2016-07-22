@@ -1,2 +1,0 @@
-create table customer(id int primary key auto_increment, name varchar(100) not null, age int);
-create table product(id int primary key, customer_id int, name varchar(100), value double, constraint fk_customer foreign key (customer_id) references customer(id));
