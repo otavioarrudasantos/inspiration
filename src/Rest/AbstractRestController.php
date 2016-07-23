@@ -1,5 +1,5 @@
 <?php
-namespace Xosq\Inspiration\Rest;
+namespace Inspiration\Rest;
 
 abstract class AbstractRestController {
 

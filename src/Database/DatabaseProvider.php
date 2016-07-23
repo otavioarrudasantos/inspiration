@@ -1,10 +1,10 @@
 <?php
-namespace Xosq\Inspiration\Database;
+namespace Inspiration\Database;
 
-use Xosq\Inspiration\Database\Model;
-use Xosq\Inspiration\DataProvider\DataProviderInterface;
-use Xosq\Inspiration\Database\Connection;
-use Xosq\Inspiration\DataProvider\DatabaseProviderFactory;
+use Inspiration\Database\Model;
+use Inspiration\DataProvider\DataProviderInterface;
+use Inspiration\Database\Connection;
+use Inspiration\DataProvider\DatabaseProviderFactory;
 
 class DatabaseProvider implements DataProviderInterface{
 

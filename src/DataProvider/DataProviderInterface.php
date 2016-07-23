@@ -1,5 +1,5 @@
 <?php
-namespace Xosq\Inspiration\DataProvider;
+namespace Inspiration\DataProvider;
 
 interface DataProviderInterface {
 

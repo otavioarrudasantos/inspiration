@@ -1,7 +1,7 @@
 <?php
-namespace Xosq\Inspiration\Rest;
+namespace Inspiration\Rest;
 
-use Xosq\Inspiration\DataProvider\DataProviderFactory;
+use Inspiration\DataProvider\DataProviderFactory;
 
 class Application {
 

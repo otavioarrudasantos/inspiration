@@ -1,5 +1,5 @@
 <?php
-namespace Xosq\Inspiration\Database;
+namespace Inspiration\Database;
 
 class Connection {
 

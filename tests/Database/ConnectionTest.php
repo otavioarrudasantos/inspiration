@@ -1,12 +1,12 @@
 <?php
-namespace XosqTest\Inspiration\Database;
+namespace InspirationTest\Inspiration\Database;
 
 use PHPUnit\Framework\TestCase;
-use Xosq\Inspiration\Database\Connection;
+use Inspiration\Database\Connection;
 
 class ConnectionTest extends TestCase{
 
-    protected $databaseConfigDir = __DIR__ . '/../../../../config/';
+    protected $databaseConfigDir = __DIR__ . '/../config/';
 
     protected $configParameters = [
         'development' => [
