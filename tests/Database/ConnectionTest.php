@@ -1,13 +1,14 @@
 <?php
+
 namespace InspirationTest\Inspiration\Database;
 
 use PHPUnit\Framework\TestCase;
 use Inspiration\Database\Connection;
 
-class ConnectionTest extends TestCase{
+class ConnectionTest extends TestCase
+{
 
     protected $databaseConfigDir = __DIR__ . '/../config/';
-
     protected $configParameters = [
         'development' => [
             'host' => '0.0.0.0',
@@ -31,37 +32,44 @@ class ConnectionTest extends TestCase{
         ]
     ];
 
-    public function testConnectionClassExists(){
+    public function testConnectionClassExists()
+    {
         $this->assertTrue(class_exists(Connection::class));
     }
 
-    public function testCreateConnectionObject(){
+    public function testCreateConnectionObject()
+    {
         $connection = new Connection();
 
         $this->assertInstanceOf(Connection::class, $connection);
     }
 
-    public function testConfigAttributeIssetGivenConfigFilePath(){
-        $connection = new Connection($this->databaseConfigDir.'connection.php');
+    public function testConfigAttributeIssetGivenConfigFilePath()
+    {
+        $connection = new Connection($this->databaseConfigDir . 'connection.php');
 
         $this->assertTrue(null !== $connection->getConfig());
     }
 
-    public function testConfigAttributeIssetGivenConfigArray(){
+    public function testConfigAttributeIssetGivenConfigArray()
+    {
         $connection = new Connection($this->configParameters);
 
         $this->assertTrue(null !== $connection->getConfig());
     }
+
     /**
      * @expectedException Exception
      *
      */
-    public function testThrowExceptionIfInvalidConfigFilePathGiven(){
+    public function testThrowExceptionIfInvalidConfigFilePathGiven()
+    {
         $invalidPath = 'invalid/path/';
         $connection = new Connection($invalidPath);
     }
 
-    public function testCorrectDsnGenerationGivenConfigAndContext(){
+    public function testCorrectDsnGenerationGivenConfigAndContext()
+    {
         $correctDsn = "mysql:host=0.0.0.0;port=3306;dbname=testDev";
 
         $connection = new Connection($this->configParameters);
@@ -70,7 +78,8 @@ class ConnectionTest extends TestCase{
         $this->assertEquals($correctDsn, $connection->getDsn());
     }
 
-    public function testCorrectDsnGenerationGivenSqliteConfig(){
+    public function testCorrectDsnGenerationGivenSqliteConfig()
+    {
         $correctDsn = "sqlite:/tmp/testTest.db";
 
         $connection = new Connection($this->configParameters);
@@ -79,7 +88,8 @@ class ConnectionTest extends TestCase{
         $this->assertEquals($correctDsn, $connection->getDsn());
     }
 
-    public function testRetrieveParametersFromUndefinedContext(){
+    public function testRetrieveParametersFromUndefinedContext()
+    {
         $context = 'undefinedContext';
 
         $connection = new Connection();
@@ -87,10 +97,10 @@ class ConnectionTest extends TestCase{
         $connection->setConfig($this->configParameters);
 
         $this->assertEquals([], $connection->getConfigFromContext());
-        
     }
 
-    public function testRetrieveCorrectParametersFromCorrectContext(){
+    public function testRetrieveCorrectParametersFromCorrectContext()
+    {
         $context = 'development';
         $expectedParameters = [
             'host' => '0.0.0.0',
@@ -110,24 +120,27 @@ class ConnectionTest extends TestCase{
 
     /**
      * @expectedException Exception
-    */
-    public function testConnectWithoutAnyConfiguration(){
+     */
+    public function testConnectWithoutAnyConfiguration()
+    {
         $connection = new Connection();
         $connection->connect();
     }
 
     /**
      * @expectedException Exception
-    */
-    public function testConnectWithCorrectConfigButWithoutContext(){
+     */
+    public function testConnectWithCorrectConfigButWithoutContext()
+    {
         $connection = new Connection($this->configParameters);
         $connection->connect();
     }
 
     /**
      * @expectedException Exception
-    */
-    public function testConnectFailureWhenWrongConfigGivenAndCorrectContext(){
+     */
+    public function testConnectFailureWhenWrongConfigGivenAndCorrectContext()
+    {
         $wrongParameters = [];
         $connection = new Connection($wrongParameters);
         $connection->setContext('test');
@@ -136,18 +149,20 @@ class ConnectionTest extends TestCase{
 
     /**
      * @expectedException Exception
-    */
-    public function testConnectFailureWhenCorrectConfigGivenAndWrongContext(){
+     */
+    public function testConnectFailureWhenCorrectConfigGivenAndWrongContext()
+    {
         $wrongContext = 'wrong';
         $connection = new Connection($this->configParameters);
         $connection->setContext($wrongContext);
-        $connection->connect();   
+        $connection->connect();
     }
 
     /**
      * @expectedException \PDOException
-    */
-    public function testConnectFailureWithWrongDbConfig(){
+     */
+    public function testConnectFailureWithWrongDbConfig()
+    {
         $wrongDbConfig = [
             'test' => [
                 'host' => 'localhost',
@@ -157,14 +172,15 @@ class ConnectionTest extends TestCase{
 
         $connection = new Connection($wrongDbConfig);
         $connection->setContext('test');
-        $connection->connect();   
+        $connection->connect();
     }
 
-    public function testConnect(){
-        
+    public function testConnect()
+    {
+
         $connection = new Connection($this->configParameters);
         $connection->setContext('test');
-        $connection->connect();   
+        $connection->connect();
 
         $this->assertInstanceOf(\PDO::class, $connection->getDriver());
     }
