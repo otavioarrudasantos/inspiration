@@ -6,6 +6,17 @@ class Model
 {
 
     public $entityName;
+    public $primaryKey;
+
+    function getPrimaryKey()
+    {
+        return $this->primaryKey;
+    }
+
+    function setPrimaryKey($primaryKey)
+    {
+        $this->primaryKey = $primaryKey;
+    }
 
     public function getEntityName()
     {
@@ -51,7 +62,7 @@ class Model
             $reflectionMethod = new \ReflectionMethod(
                 get_class($model), 'set' . ucfirst($reflectionProperty->name)
             );
-            
+
             $value = $reflectionMethod->invoke($model, $value);
         }
     }
