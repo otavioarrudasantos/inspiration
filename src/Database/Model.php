@@ -7,6 +7,7 @@ class Model
 
     public $entityName;
     public $primaryKey;
+    public $dataProviderClass;
 
     function getPrimaryKey()
     {
@@ -16,6 +17,7 @@ class Model
     function setPrimaryKey($primaryKey)
     {
         $this->primaryKey = $primaryKey;
+        return $this;
     }
 
     public function getEntityName()
@@ -26,6 +28,7 @@ class Model
     public function setEntityName($entityName)
     {
         $this->entityName = $entityName;
+        return $this;
     }
 
     public static function getProperties(Model $model)
@@ -70,6 +73,7 @@ class Model
     public function setDataProviderClass($dataProviderClass)
     {
         $this->dataProviderClass = $dataProviderClass;
+        return $this;
     }
 
     public function getDataProviderClass()

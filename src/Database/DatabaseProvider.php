@@ -20,6 +20,7 @@ class DatabaseProvider implements DataProviderInterface
     public function setEntity(Model $entity)
     {
         $this->entity = $entity;
+        return $this;
     }
 
     public function getDataDriver()
@@ -30,6 +31,7 @@ class DatabaseProvider implements DataProviderInterface
     public function setDataDriver($dataDriver)
     {
         $this->dataDriver = $dataDriver;
+        return $this;
     }
 
     public function isEntitySet()

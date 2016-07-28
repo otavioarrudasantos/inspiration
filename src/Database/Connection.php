@@ -32,6 +32,7 @@ class Connection
     public function setConfig($config)
     {
         $this->config = $config;
+        return $this;
     }
 
     public function getConfig()
@@ -42,6 +43,7 @@ class Connection
     public function setContext($context)
     {
         $this->context = $context;
+        return $this;
     }
 
     public function getContext()
@@ -77,7 +79,11 @@ class Connection
     public function getDsn()
     {
         if (!isset($this->context)) {
-            throw new \Exception("Connection context not defined");
+            throw new \Exception("Connection context is not defined");
+        }
+        
+        if (!isset($this->config)) {
+            throw new \Exception("Connection configuration is not defined");
         }
 
         if (!array_key_exists($this->context, $this->config)) {

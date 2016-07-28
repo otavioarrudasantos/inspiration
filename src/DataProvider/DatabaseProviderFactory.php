@@ -1,39 +1,50 @@
 <?php
+
 namespace Inspiration\DataProvider;
 
-use Inspiration\Database\Model;
 use Inspiration\Database\Connection;
-use Inspiration\Database\DatabaseProvider;
-use Inspiration\Database\DefaultRepository;
 
-class DatabaseProviderFactory {
+class DatabaseProviderFactory
+{
 
-    public $databaseConfigDir = __DIR__ . '/../../../../config/';
-
+    public $databaseConfig;
     public $dataDriver;
-
     public $context;
 
-    public function configure($entityDataProvider, $context){
-        $this->context = $context;
-        $entityDataProvider->setDataDriver($this->getDataDriver());
-
+    function getDatabaseConfig()
+    {
+        return $this->databaseConfig;
     }
 
-    public function setContext($context){
-        $this->context = $context;
+    function setDatabaseConfig($databaseConfig)
+    {
+        $this->databaseConfig = $databaseConfig;
     }
 
-    public function getContext($context){
-        
+    public function configure($entityDataProvider, $config = null)
+    {
+        $entityDataProvider->setDataDriver($this->getDataDriver($config));
+    }
+
+    public function setContext($context)
+    {
+        $this->context = $context;
+        return $this;
+    }
+
+    public function getContext()
+    {
+
         return $this->context;
     }
 
-    public function getDataDriver(){
+    public function getDataDriver($config = null)
+    {
 
-        if(!isset($this->dataDriver)){
-            $this->dataDriver = new Connection($this->databaseConfigDir. 'connection.php');
-            $this->dataDriver->setContext($this->context);
+        if (!isset($this->dataDriver)) {
+            $this->databaseConfig = isset($config) ? $config : $this->databaseConfig;
+            $this->dataDriver = new Connection($this->databaseConfig);
+            $this->dataDriver->setContext($this->getContext());
             $this->dataDriver->connect();
         }
 
